@@ -1,0 +1,5 @@
+from app.server import echo
+
+
+def test_echo_tool() -> None:
+    assert echo("hello") == "hello"

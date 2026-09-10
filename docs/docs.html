@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Metis documentation">
+  <title>Metis Docs</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="docs-body">
+  <div class="noise"></div>
+  <header class="nav-wrap">
+    <nav class="nav container">
+      <a class="brand" href="index.html"><span class="brand-mark">M</span><span>metis</span></a>
+      <div class="nav-links"><a href="index.html">Home</a><a href="#quick-start">Quick start</a><a href="#commands-docs">Commands</a></div>
+      <a class="btn btn-small btn-ghost" href="https://github.com/rajeshsgr/metis" target="_blank">GitHub ↗</a>
+    </nav>
+  </header>
+
+  <main class="docs-layout container">
+    <aside class="docs-sidebar">
+      <div class="sidebar-title">Documentation</div>
+      <a href="#overview">Overview</a><a href="#install">Install</a><a href="#quick-start">Quick start</a>
+      <a href="#rag">RAG</a><a href="#agent">Agent</a><a href="#mcp">MCP server</a>
+      <a href="#add">Add capability</a><a href="#inspect">Inspect</a><a href="#doctor">Doctor</a>
+      <a href="#mental-model">Mental model</a><a href="#scope">v0.1 scope</a>
+    </aside>
+
+    <article class="docs-content">
+      <section id="overview">
+        <div class="eyebrow"><span class="dot"></span> Metis documentation</div>
+        <h1>Get from zero to a working AI development environment.</h1>
+        <p class="lead">Metis is a CLI for scaffolding and evolving local AI development environments for RAG, Agents and MCP.</p>
+        <div class="docs-callout"><strong>Think of Metis this way:</strong><p>Recipes create environments. Capabilities extend them. Inspect explains them. Doctor validates them.</p></div>
+      </section>
+
+      <section id="install">
+        <h2>Install</h2>
+        <p>For local development from the Metis repository:</p>
+        <div class="code-block"><button class="copy-button" data-copy="python3.12 -m venv .venv&#10;source .venv/bin/activate&#10;python -m pip install -e .">Copy</button><pre><code>python3.12 -m venv .venv
+source .venv/bin/activate
+python -m pip install -e .</code></pre></div>
+        <p class="docs-note">Once Metis is published to PyPI or Homebrew, replace this with the public installation command.</p>
+      </section>
+
+      <section id="quick-start">
+        <h2>Quick start</h2>
+        <p>Create an Agent environment:</p>
+        <div class="code-block"><button class="copy-button" data-copy="metis init agent">Copy</button><pre><code>metis init agent</code></pre></div>
+        <p>Start the generated project:</p>
+        <div class="code-block"><button class="copy-button" data-copy="cd my-agent&#10;cp .env.example .env&#10;docker compose up --build">Copy</button><pre><code>cd my-agent
+cp .env.example .env
+docker compose up --build</code></pre></div>
+        <p>Understand and validate it:</p>
+        <div class="code-block"><button class="copy-button" data-copy="metis inspect&#10;metis doctor">Copy</button><pre><code>metis inspect
+metis doctor</code></pre></div>
+      </section>
+
+      <section id="rag">
+        <h2>Create a RAG environment</h2>
+        <div class="code-block"><button class="copy-button" data-copy="metis init rag">Copy</button><pre><code>metis init rag</code></pre></div>
+        <p>Choose a vector DB, LLM, embedding provider and FastAPI framework. Metis scaffolds the environment and starter wiring; you own chunking, retrieval strategy, prompts and domain logic.</p>
+      </section>
+
+      <section id="agent">
+        <h2>Create an Agent environment</h2>
+        <div class="code-block"><button class="copy-button" data-copy="metis init agent">Copy</button><pre><code>metis init agent</code></pre></div>
+        <p>Choose LLM provider, runtime, state and framework. Current state options include none or Redis.</p>
+      </section>
+
+      <section id="mcp">
+        <h2>Create an MCP server</h2>
+        <div class="code-block"><button class="copy-button" data-copy="metis init mcp-server">Copy</button><pre><code>metis init mcp-server</code></pre></div>
+        <p>Generate a minimal Python MCP server using stdio or streamable HTTP, plus a safe example tool.</p>
+      </section>
+
+      <section id="commands-docs"><h2>Core commands</h2></section>
+
+      <section id="add">
+        <h3>metis add</h3>
+        <p>Add a capability to an existing Metis-generated project.</p>
+        <div class="code-block"><button class="copy-button" data-copy="metis add rag">Copy</button><pre><code>metis add rag</code></pre></div>
+        <p>Metis inspects what already exists, preserves compatible pieces, adds what is missing, validates the result and updates metadata.</p>
+      </section>
+
+      <section id="inspect">
+        <h3>metis inspect</h3>
+        <div class="code-block"><button class="copy-button" data-copy="metis inspect">Copy</button><pre><code>metis inspect</code></pre></div>
+        <p>Show the current recipe, selections, capabilities and detected infrastructure.</p>
+      </section>
+
+      <section id="doctor">
+        <h3>metis doctor</h3>
+        <div class="code-block"><button class="copy-button" data-copy="metis doctor">Copy</button><pre><code>metis doctor</code></pre></div>
+        <p>Check Docker, Compose validity, app health, Qdrant/Chroma, Redis and required provider environment variables when relevant.</p>
+      </section>
+
+      <section id="mental-model">
+        <h2>Mental model</h2>
+        <div class="mental-grid">
+          <div><span>Recipe</span><strong>Complete environment blueprint</strong><p>Example: Agent, RAG, MCP.</p></div>
+          <div><span>Capability</span><strong>Reusable building block</strong><p>Example: FastAPI, Redis, vector DB.</p></div>
+          <div><span>Inspect</span><strong>Understand current state</strong><p>Compare metadata with project evidence.</p></div>
+          <div><span>Doctor</span><strong>Validate local readiness</strong><p>Check tooling, config and reachable services.</p></div>
+        </div>
+      </section>
+
+      <section id="scope">
+        <h2>Metis v0.1 scope</h2>
+        <ul>
+          <li><code>metis init rag</code></li><li><code>metis init agent</code></li>
+          <li><code>metis init mcp-server</code></li><li><code>metis add rag</code></li>
+          <li><code>metis inspect</code></li><li><code>metis doctor</code></li>
+        </ul>
+        <div class="docs-callout">The first release is focused on reliable local scaffolding, composition and diagnostics. Production deployment, enterprise auth and observability are intentionally outside v0.1.</div>
+      </section>
+    </article>
+  </main>
+
+  <footer class="footer container">
+    <div class="brand"><span class="brand-mark">M</span><span>metis</span></div>
+    <p>Build AI environments. Not setup scripts.</p>
+    <div class="footer-links"><a href="index.html">Home</a><a href="https://github.com/rajeshsgr/metis">GitHub</a></div>
+  </footer>
+  <script src="script.js"></script>
+</body>
+</html>

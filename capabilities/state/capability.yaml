@@ -1,0 +1,10 @@
+apiVersion: metis.dev/v1alpha1
+kind: Capability
+metadata:
+  name: state
+  version: 0.1.0
+provides:
+  - state
+  - persistence
+requires:
+  - python

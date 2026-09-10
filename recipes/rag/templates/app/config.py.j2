@@ -1,0 +1,13 @@
+import os
+from dataclasses import dataclass
+
+
+@dataclass(frozen=True)
+class Settings:
+    project_name: str = os.getenv("PROJECT_NAME", "{{ project_name }}")
+    llm: str = "{{ llm }}"
+    embedding: str = "{{ embedding }}"
+    vector_db: str = "{{ vector_db }}"
+
+
+settings = Settings()

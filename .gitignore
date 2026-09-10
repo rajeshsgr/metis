@@ -1,0 +1,17 @@
+# Private/internal Metis files
+specs/
+AGENTS.md
+.github/copilot-instructions.md
+copilot-remaining-core-implementation-prompt.md
+
+# Local Python files
+.venv/
+.pytest_cache/
+__pycache__/
+*.pyc
+
+# macOS
+.DS_Store
+
+# Generated/local artifacts
+.generated/

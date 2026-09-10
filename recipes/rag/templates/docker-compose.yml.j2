@@ -1,0 +1,21 @@
+services:
+  app:
+    build: .
+    ports:
+      - "8000:8000"
+    env_file:
+      - path: .env
+        required: false
+    depends_on:
+      - {{ vector_db }}
+  {% if vector_db == "qdrant" %}
+  qdrant:
+    image: qdrant/qdrant:latest
+    ports:
+      - "6333:6333"
+  {% else %}
+  chroma:
+    image: chromadb/chroma:latest
+    ports:
+      - "8001:8000"
+  {% endif %}

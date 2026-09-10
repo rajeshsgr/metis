@@ -1,0 +1,37 @@
+apiVersion: metis.dev/v1alpha1
+kind: Recipe
+metadata:
+  name: rag
+  version: 0.1.0
+  description: Generate a local RAG development environment
+project:
+  defaultName: my-rag-app
+capabilities:
+  - python
+  - fastapi
+  - llm
+  - embeddings
+  - vector-db
+questions:
+  - id: vector_db
+    type: select
+    message: Choose vector database
+    default: qdrant
+    options: [qdrant, chroma]
+  - id: llm
+    type: select
+    message: Choose LLM provider
+    default: openai
+    options: [openai, anthropic]
+  - id: embedding
+    type: select
+    message: Choose embedding provider
+    default: openai
+    options: [openai, huggingface]
+  - id: framework
+    type: select
+    message: Choose application framework
+    default: fastapi
+    options: [fastapi]
+template:
+  path: templates

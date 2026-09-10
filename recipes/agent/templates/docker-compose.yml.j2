@@ -1,0 +1,20 @@
+services:
+  app:
+    build: .
+    ports:
+      - "8000:8000"
+    env_file:
+      - path: .env
+        required: false
+    {% if state == "redis" %}
+    depends_on:
+      {% if state == "redis" %}
+      - redis
+      {% endif %}
+    {% endif %}
+  {% if state == "redis" %}
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+  {% endif %}

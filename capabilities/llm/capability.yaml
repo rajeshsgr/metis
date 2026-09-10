@@ -1,0 +1,10 @@
+apiVersion: metis.dev/v1alpha1
+kind: Capability
+metadata:
+  name: llm
+  version: 0.1.0
+provides:
+  - llm
+  - llm-provider
+requires:
+  - python

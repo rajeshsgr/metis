@@ -1,0 +1,18 @@
+from mcp.server.fastmcp import FastMCP
+
+
+mcp = FastMCP("{{ project_name }}")
+
+
+@mcp.tool()
+def echo(message: str) -> str:
+    """Return the supplied message."""
+    return message
+
+
+if __name__ == "__main__":
+    {% if transport == "streamable-http" %}
+    mcp.run(transport="streamable-http")
+    {% else %}
+    mcp.run()
+    {% endif %}

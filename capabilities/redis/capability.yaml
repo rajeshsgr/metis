@@ -1,0 +1,11 @@
+apiVersion: metis.dev/v1alpha1
+kind: Capability
+metadata:
+  name: redis
+  version: 0.1.0
+provides:
+  - redis
+  - state-backend
+requires:
+  - python
+  - state

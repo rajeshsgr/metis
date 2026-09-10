@@ -1,0 +1,11 @@
+apiVersion: metis.dev/v1alpha1
+kind: Capability
+metadata:
+  name: embeddings
+  version: 0.1.0
+provides:
+  - embeddings
+  - embedding-provider
+requires:
+  - python
+  - llm

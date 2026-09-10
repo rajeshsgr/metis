@@ -1,0 +1,25 @@
+from __future__ import annotations
+
+from dataclasses import dataclass
+
+from .config import settings
+
+
+@dataclass(frozen=True)
+class AgentResponse:
+    message: str
+    runtime: str
+    llm: str
+
+
+class Agent:
+    def __init__(self) -> None:
+        self.runtime = settings.agent_runtime
+        self.llm = settings.llm
+
+    def invoke(self, message: str) -> AgentResponse:
+        return AgentResponse(
+            message=message,
+            runtime=self.runtime,
+            llm=self.llm,
+        )

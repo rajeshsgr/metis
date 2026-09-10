@@ -1,0 +1,25 @@
+apiVersion: metis.dev/v1alpha1
+kind: Recipe
+metadata:
+  name: mcp-server
+  version: 0.1.0
+  description: Generate a minimal local MCP server
+project:
+  defaultName: my-mcp-server
+capabilities:
+  - python
+  - mcp-runtime
+  - fastapi
+questions:
+  - id: transport
+    type: select
+    message: Choose MCP transport
+    default: stdio
+    options: [stdio, streamable-http]
+  - id: language
+    type: select
+    message: Choose language
+    default: python
+    options: [python]
+template:
+  path: templates

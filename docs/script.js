@@ -1,0 +1,4 @@
+document.querySelectorAll(".copy-button").forEach((button)=>{button.addEventListener("click",async()=>{const value=button.dataset.copy||"";try{await navigator.clipboard.writeText(value);const prev=button.textContent;button.textContent="Copied";setTimeout(()=>button.textContent=prev,1200)}catch{button.textContent="Copy failed"}})});
+const targets=document.querySelectorAll(".feature-card,.command-card,.compare-card,.benefit-grid article,.timeline-step,.docs-content section");
+const observer=new IntersectionObserver((entries)=>{entries.forEach((entry)=>{if(entry.isIntersecting){entry.target.animate([{opacity:0,transform:"translateY(14px)"},{opacity:1,transform:"translateY(0)"}],{duration:450,easing:"cubic-bezier(.2,.8,.2,1)",fill:"both"});observer.unobserve(entry.target)}})},{threshold:.08});
+targets.forEach(el=>observer.observe(el));

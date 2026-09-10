@@ -1,0 +1,7 @@
+services:
+  app:
+    build: .
+    {% if transport == "streamable-http" %}ports:
+      - "8000:8000"
+    {% endif %}environment:
+      MCP_TRANSPORT: {{ transport }}

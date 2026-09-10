@@ -1,0 +1,37 @@
+apiVersion: metis.dev/v1alpha1
+kind: Recipe
+metadata:
+  name: agent
+  version: 0.1.0
+  description: Generate a local AI agent development environment
+project:
+  defaultName: my-agent
+capabilities:
+  - python
+  - fastapi
+  - llm
+  - agent-runtime
+  - state
+questions:
+  - id: llm
+    type: select
+    message: Choose LLM provider
+    default: openai
+    options: [openai, anthropic]
+  - id: agent_runtime
+    type: select
+    message: Choose agent runtime
+    default: plain-sdk
+    options: [plain-sdk, langgraph]
+  - id: state
+    type: select
+    message: Choose state backend
+    default: none
+    options: [none, redis]
+  - id: framework
+    type: select
+    message: Choose application framework
+    default: fastapi
+    options: [fastapi]
+template:
+  path: templates

@@ -1,0 +1,28 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "metis"
+version = "0.1.0"
+description = "A spec-driven CLI for AI development environments"
+requires-python = ">=3.12"
+dependencies = [
+    "Jinja2>=3.1",
+    "PyYAML>=6.0",
+    "jsonschema>=4.20",
+    "typer>=0.12",
+]
+
+[project.scripts]
+metis = "metis.cli:app"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/metis"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0"]

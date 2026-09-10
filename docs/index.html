@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Metis — composable AI development environments for RAG, Agents and MCP.">
+  <title>Metis — Build AI environments, not setup scripts.</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="noise"></div>
+  <header class="nav-wrap">
+    <nav class="nav container">
+      <a class="brand" href="index.html"><span class="brand-mark">M</span><span>metis</span></a>
+      <div class="nav-links">
+        <a href="#why">Why Metis</a>
+        <a href="#commands">Commands</a>
+        <a href="#workflow">Workflow</a>
+        <a href="docs.html">Docs</a>
+      </div>
+      <a class="btn btn-small btn-ghost" href="https://github.com/rajeshsgr/metis" target="_blank">GitHub ↗</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero container">
+      <div class="eyebrow"><span class="dot"></span> Open-source CLI for AI developers</div>
+      <h1>Build AI environments.<br><span class="gradient-text">Not setup scripts.</span></h1>
+      <p class="hero-copy">
+        Metis scaffolds composable development environments for <strong>RAG</strong>, <strong>Agents</strong> and <strong>MCP</strong> —
+        with Docker, configuration, metadata, diagnostics and safe evolution built in.
+      </p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="docs.html">Get started</a>
+        <a class="btn btn-ghost" href="https://github.com/rajeshsgr/metis" target="_blank">View on GitHub</a>
+      </div>
+
+      <div class="terminal hero-terminal">
+        <div class="terminal-top">
+          <div class="lights"><i></i><i></i><i></i></div>
+          <span>metis — terminal</span>
+          <span class="terminal-status">● ready</span>
+        </div>
+        <pre><code><span class="muted">$</span> <span class="cmd">metis init agent</span>
+
+<span class="prompt">Project name:</span> my-agent
+<span class="prompt">LLM:</span> openai
+<span class="prompt">Runtime:</span> plain-sdk
+<span class="prompt">State:</span> redis
+
+<span class="ok">✓</span> FastAPI app created
+<span class="ok">✓</span> Redis configured
+<span class="ok">✓</span> Docker Compose generated
+<span class="ok">✓</span> Project metadata created
+
+<span class="muted">$</span> <span class="cmd">metis add rag</span>
+
+<span class="ok">✓</span> Existing FastAPI reused
+<span class="ok">✓</span> Existing LLM reused
+<span class="ok">✓</span> Qdrant added
+<span class="ok">✓</span> Project updated safely</code></pre>
+      </div>
+    </section>
+
+    <section id="why" class="section container">
+      <div class="section-kicker">Developer experience</div>
+      <h2>Spend time building the AI capability —<br>not rebuilding the environment.</h2>
+
+      <div class="compare-grid">
+        <div class="compare-card muted-card">
+          <div class="card-label">Without Metis</div>
+          <ul class="pain-list">
+            <li>Docker setup</li>
+            <li>Dependency wiring</li>
+            <li>Environment variables</li>
+            <li>Vector database setup</li>
+            <li>Health checks</li>
+            <li>Starter boilerplate</li>
+          </ul>
+        </div>
+
+        <div class="compare-card glow-card">
+          <div class="card-label">With Metis</div>
+          <div class="single-command"><span class="muted">$</span> metis init rag</div>
+          <div class="ready">Ready to code.</div>
+          <p>Choose the building blocks. Metis wires the local environment and gives you a clean starting point.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section container">
+      <div class="section-kicker">What Metis scaffolds</div>
+      <h2>Three starting points. One consistent developer experience.</h2>
+      <div class="feature-grid">
+        <article class="feature-card">
+          <div class="icon">◎</div><h3>RAG</h3>
+          <p>FastAPI + embeddings + Qdrant or Chroma, with Docker and starter wiring.</p>
+          <div class="mini-code">$ metis init rag</div>
+        </article>
+        <article class="feature-card">
+          <div class="icon">✦</div><h3>Agents</h3>
+          <p>FastAPI + LLM runtime + optional Redis state, ready for your tools and behavior.</p>
+          <div class="mini-code">$ metis init agent</div>
+        </article>
+        <article class="feature-card">
+          <div class="icon">⌘</div><h3>MCP</h3>
+          <p>Python MCP server with stdio or streamable HTTP and a minimal example tool.</p>
+          <div class="mini-code">$ metis init mcp-server</div>
+        </article>
+      </div>
+    </section>
+
+    <section id="commands" class="section command-section">
+      <div class="container">
+        <div class="section-kicker">Core commands</div>
+        <h2>Create. Extend. Understand. Diagnose.</h2>
+        <div class="command-grid">
+          <article class="command-card">
+            <div class="command-number">01</div>
+            <h3><span class="cmd-pill">metis init</span></h3>
+            <p>Create a working AI development environment from a recipe.</p>
+            <pre><code>$ metis init agent
+$ metis init rag
+$ metis init mcp-server</code></pre>
+          </article>
+
+          <article class="command-card">
+            <div class="command-number">02</div>
+            <h3><span class="cmd-pill">metis add</span></h3>
+            <p>Safely add a capability without rebuilding what already exists.</p>
+            <pre><code>$ metis add rag
+
+✓ Existing FastAPI reused
+✓ Existing LLM reused
+✓ Qdrant added</code></pre>
+          </article>
+
+          <article class="command-card">
+            <div class="command-number">03</div>
+            <h3><span class="cmd-pill">metis inspect</span></h3>
+            <p>Understand what Metis sees in the current project.</p>
+            <pre><code>$ metis inspect
+
+Recipe: agent
+Capabilities:
+✓ fastapi
+✓ llm
+✓ redis
+✓ rag</code></pre>
+          </article>
+
+          <article class="command-card">
+            <div class="command-number">04</div>
+            <h3><span class="cmd-pill">metis doctor</span></h3>
+            <p>Validate local tooling, configuration and reachable services.</p>
+            <pre><code>$ metis doctor
+
+✓ Docker available
+✓ Compose valid
+✓ App reachable
+✓ Qdrant reachable</code></pre>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="workflow" class="section container">
+      <div class="section-kicker">Built to evolve</div>
+      <h2>Metis doesn’t just generate projects.<br>It builds on what is already there.</h2>
+      <div class="timeline">
+        <div class="timeline-step"><span>Day 1</span><strong>metis init agent</strong><p>Start with the environment you need now.</p></div>
+        <div class="timeline-line"></div>
+        <div class="timeline-step"><span>Day 5</span><strong>metis add rag</strong><p>Add new capability without starting over.</p></div>
+        <div class="timeline-line"></div>
+        <div class="timeline-step"><span>Anytime</span><strong>metis inspect</strong><p>See what is configured and detected.</p></div>
+        <div class="timeline-line"></div>
+        <div class="timeline-step"><span>Before you code</span><strong>metis doctor</strong><p>Validate your local environment quickly.</p></div>
+      </div>
+    </section>
+
+    <section class="section container">
+      <div class="benefit-grid">
+        <article><span>01</span><h3>Minutes, not hours</h3><p>Start from a working development environment instead of wiring infrastructure by hand.</p></article>
+        <article><span>02</span><h3>Composable by design</h3><p>Recipes create environments. Capabilities extend them.</p></article>
+        <article><span>03</span><h3>Safe evolution</h3><p>Reuse compatible pieces and preserve what already exists.</p></article>
+        <article><span>04</span><h3>Understandable</h3><p>Metadata, inspect and doctor make the environment easier to reason about.</p></article>
+      </div>
+    </section>
+
+    <section class="cta-section">
+      <div class="container cta-inner">
+        <div><div class="section-kicker">Ready to try it?</div><h2>Stop configuring.<br><span class="gradient-text">Start building.</span></h2></div>
+        <div class="cta-actions">
+          <div class="copy-box"><code>metis init agent</code><button class="copy-button" data-copy="metis init agent">Copy</button></div>
+          <a class="btn btn-primary" href="docs.html">Read the docs</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer container">
+    <div class="brand"><span class="brand-mark">M</span><span>metis</span></div>
+    <p>Composable AI development environments for developers.</p>
+    <div class="footer-links"><a href="docs.html">Docs</a><a href="https://github.com/rajeshsgr/metis">GitHub</a></div>
+  </footer>
+  <script src="script.js"></script>
+</body>
+</html>

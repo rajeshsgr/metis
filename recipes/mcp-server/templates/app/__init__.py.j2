@@ -1,0 +1,1 @@
+"""Minimal MCP server package."""

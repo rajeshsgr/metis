@@ -1,0 +1,18 @@
+apiVersion: metis.dev/v1alpha1
+kind: Capability
+metadata:
+  name: vector-db
+  version: 0.1.0
+provides:
+  - vector-db
+  - vector-database
+questions:
+  - id: vector_db
+    type: select
+    message: Choose vector database
+    options:
+      - qdrant
+      - chroma
+requires:
+  - python
+  - llm

@@ -1,0 +1,10 @@
+apiVersion: metis.dev/v1alpha1
+kind: Capability
+metadata:
+  name: mcp-runtime
+  version: 0.1.0
+  description: Model Context Protocol server runtime
+provides:
+  - mcp-runtime
+requires:
+  - python
