@@ -85,6 +85,57 @@ metis init rag
 metis init mcp-server
 ```
 
+### Preview before generating
+
+```bash
+metis init rag --name demo --dry-run
+```
+
+Dry-run resolves the recipe and your selections exactly like a normal `init`, then shows the generation plan before Metis writes anything.
+
+The plan includes:
+
+- recipe and project name
+- target destination
+- resolved selections
+- capabilities
+- files Metis would create
+
+Dry-run is read-only. It does **not** create the project directory, write generated files, or create `.metis/project.yaml`.
+
+Example:
+
+```text
+Metis generation plan
+
+Recipe: rag
+Project: demo
+Destination: ./demo
+
+Selections:
+  vector_db: qdrant
+  llm: openai
+  embedding: openai
+  framework: fastapi
+
+Capabilities:
+  python
+  fastapi
+  llm
+  embeddings
+  vector-db
+
+Files:
+  CREATE .env.example
+  CREATE Dockerfile
+  CREATE README.md
+  CREATE app/main.py
+  CREATE docker-compose.yml
+  CREATE .metis/project.yaml
+
+Dry run only. No files were written.
+```
+
 ### Extend an existing project
 
 ```bash
@@ -125,6 +176,9 @@ Depending on the project, Doctor can validate:
 Metis is designed to evolve with the project.
 
 ```text
+Before init
+metis init rag --dry-run
+
 Day 1
 metis init agent
 
@@ -147,6 +201,10 @@ The goal is simple:
 ### Minutes, not hours
 
 Start with a working local environment instead of wiring infrastructure manually.
+
+### Preview before apply
+
+See what Metis plans to generate before it writes anything.
 
 ### Composable by design
 
@@ -183,6 +241,14 @@ python -m pytest
 
 ## Quick start
 
+Preview a RAG project before creating anything:
+
+```bash
+metis init rag --name my-rag-project --dry-run
+```
+
+Review the plan, then run the same command without `--dry-run` when you are ready to generate the project.
+
 Create an Agent project:
 
 ```bash
@@ -211,6 +277,14 @@ metis doctor
 ```
 
 ## Example: RAG
+
+Preview first:
+
+```bash
+metis init rag --name my-rag-project --output /tmp/metis --dry-run
+```
+
+Then generate:
 
 ```bash
 metis init rag --output /tmp/metis
@@ -276,6 +350,7 @@ Metis does not blindly trust metadata. Commands that inspect or modify a project
 
 Metis is built around a few simple principles:
 
+- **Preview before apply**
 - **Composable by design**
 - **Safe evolution**
 - **Deterministic scaffolding**
@@ -292,12 +367,13 @@ The first release intentionally keeps the product surface small:
 metis init rag
 metis init agent
 metis init mcp-server
+metis init <recipe> --dry-run
 metis add rag
 metis inspect
 metis doctor
 ```
 
-The current release focuses on **local development scaffolding, composition, and diagnostics**.
+The current release focuses on **local development scaffolding, planning, composition, and diagnostics**.
 
 Production deployment, enterprise authentication, cloud provisioning, and observability are outside the current v0.1 scope.
 

@@ -22,7 +22,7 @@
       <div class="sidebar-title">Documentation</div>
       <a href="#overview">Overview</a><a href="#install">Install</a><a href="#quick-start">Quick start</a>
       <a href="#rag">RAG</a><a href="#agent">Agent</a><a href="#mcp">MCP server</a>
-      <a href="#add">Add capability</a><a href="#inspect">Inspect</a><a href="#doctor">Doctor</a>
+      <a href="#dry-run">Dry run</a><a href="#add">Add capability</a><a href="#inspect">Inspect</a><a href="#doctor">Doctor</a>
       <a href="#mental-model">Mental model</a><a href="#scope">v0.1 scope</a>
     </aside>
 
@@ -31,7 +31,7 @@
         <div class="eyebrow"><span class="dot"></span> Metis documentation</div>
         <h1>Get from zero to a working AI development environment.</h1>
         <p class="lead">Metis is a CLI for scaffolding and evolving local AI development environments for RAG, Agents and MCP.</p>
-        <div class="docs-callout"><strong>Think of Metis this way:</strong><p>Recipes create environments. Capabilities extend them. Inspect explains them. Doctor validates them.</p></div>
+        <div class="docs-callout"><strong>Think of Metis this way:</strong><p>Recipes create environments. Capabilities extend them. Dry-run previews them. Inspect explains them. Doctor validates them.</p></div>
       </section>
 
       <section id="install">
@@ -45,7 +45,9 @@ python -m pip install -e .</code></pre></div>
 
       <section id="quick-start">
         <h2>Quick start</h2>
-        <p>Create an Agent environment:</p>
+        <p>Preview a RAG project before creating anything:</p>
+        <div class="code-block"><button class="copy-button" data-copy="metis init rag --name demo --dry-run">Copy</button><pre><code>metis init rag --name demo --dry-run</code></pre></div>
+        <p>When the plan looks right, create an Agent environment:</p>
         <div class="code-block"><button class="copy-button" data-copy="metis init agent">Copy</button><pre><code>metis init agent</code></pre></div>
         <p>Start the generated project:</p>
         <div class="code-block"><button class="copy-button" data-copy="cd my-agent&#10;cp .env.example .env&#10;docker compose up --build">Copy</button><pre><code>cd my-agent
@@ -76,6 +78,33 @@ metis doctor</code></pre></div>
 
       <section id="commands-docs"><h2>Core commands</h2></section>
 
+      <section id="dry-run">
+        <h3>metis init --dry-run</h3>
+        <p>Preview exactly what Metis plans to generate before any filesystem changes are made.</p>
+        <div class="code-block"><button class="copy-button" data-copy="metis init rag --name demo --dry-run">Copy</button><pre><code>metis init rag --name demo --dry-run</code></pre></div>
+        <p>The plan includes the recipe, project name, destination, resolved selections, capabilities and files that would be created.</p>
+        <div class="code-block"><pre><code>Metis generation plan
+
+Recipe: rag
+Project: demo
+Destination: ./demo
+
+Selections:
+  vector_db: qdrant
+  llm: openai
+  embedding: openai
+  framework: fastapi
+
+Files:
+  CREATE .env.example
+  CREATE Dockerfile
+  CREATE docker-compose.yml
+  CREATE .metis/project.yaml
+
+Dry run only. No files were written.</code></pre></div>
+        <div class="docs-callout"><strong>Read-only by design.</strong><p>Dry-run does not create the project directory, write generated files, or create <code>.metis/project.yaml</code>.</p></div>
+      </section>
+
       <section id="add">
         <h3>metis add</h3>
         <p>Add a capability to an existing Metis-generated project.</p>
@@ -100,6 +129,7 @@ metis doctor</code></pre></div>
         <div class="mental-grid">
           <div><span>Recipe</span><strong>Complete environment blueprint</strong><p>Example: Agent, RAG, MCP.</p></div>
           <div><span>Capability</span><strong>Reusable building block</strong><p>Example: FastAPI, Redis, vector DB.</p></div>
+          <div><span>Dry run</span><strong>Preview before apply</strong><p>Build and display the generation plan without filesystem mutation.</p></div>
           <div><span>Inspect</span><strong>Understand current state</strong><p>Compare metadata with project evidence.</p></div>
           <div><span>Doctor</span><strong>Validate local readiness</strong><p>Check tooling, config and reachable services.</p></div>
         </div>
@@ -108,11 +138,15 @@ metis doctor</code></pre></div>
       <section id="scope">
         <h2>Metis v0.1 scope</h2>
         <ul>
-          <li><code>metis init rag</code></li><li><code>metis init agent</code></li>
-          <li><code>metis init mcp-server</code></li><li><code>metis add rag</code></li>
-          <li><code>metis inspect</code></li><li><code>metis doctor</code></li>
+          <li><code>metis init rag</code></li>
+          <li><code>metis init agent</code></li>
+          <li><code>metis init mcp-server</code></li>
+          <li><code>metis init &lt;recipe&gt; --dry-run</code></li>
+          <li><code>metis add rag</code></li>
+          <li><code>metis inspect</code></li>
+          <li><code>metis doctor</code></li>
         </ul>
-        <div class="docs-callout">The first release is focused on reliable local scaffolding, composition and diagnostics. Production deployment, enterprise auth and observability are intentionally outside v0.1.</div>
+        <div class="docs-callout">The first release is focused on reliable local scaffolding, planning, composition and diagnostics. Production deployment, enterprise auth and observability are intentionally outside v0.1.</div>
       </section>
     </article>
   </main>
@@ -122,6 +156,7 @@ metis doctor</code></pre></div>
     <p>Build AI environments. Not setup scripts.</p>
     <div class="footer-links"><a href="index.html">Home</a><a href="https://github.com/rajeshsgr/metis">GitHub</a></div>
   </footer>
+
   <script src="script.js"></script>
 </body>
 </html>
