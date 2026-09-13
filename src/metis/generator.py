@@ -1,29 +1,29 @@
-import re
 from pathlib import Path
 
 from .metadata import write_project_metadata
 from .models import Recipe
+from .planning import GenerationError, GenerationPlan, build_generation_plan
 from .render import render_template_tree
 
 
-class GenerationError(ValueError):
-    """Raised when a project cannot be safely generated."""
-
-
-def validate_project_name(project_name: str) -> None:
-    if not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9._-]*", project_name):
-        raise GenerationError(
-            "project name must use letters, numbers, dots, underscores, or hyphens"
-        )
-
-
-def generate_project(recipe: Recipe, project_name: str, destination_root: Path, answers: dict[str, str]) -> Path:
-    validate_project_name(project_name)
-    destination = destination_root / project_name
-    if destination.exists() and any(destination.iterdir()):
-        raise GenerationError(f"target directory already exists and is non-empty: {destination}")
+def generate_project(
+    recipe: Recipe,
+    project_name: str,
+    destination_root: Path,
+    answers: dict[str, str],
+    plan: GenerationPlan | None = None,
+) -> Path:
+    generation_plan = plan or build_generation_plan(
+        recipe, project_name, destination_root, answers
+    )
+    destination = generation_plan.destination
     destination.mkdir(parents=True, exist_ok=True)
-    context = {**answers, "project_name": project_name}
+    context = {**generation_plan.selections, "project_name": generation_plan.project_name}
     render_template_tree(recipe.template_path, destination, context)
-    write_project_metadata(destination, recipe, project_name, answers)
+    write_project_metadata(
+        destination,
+        recipe,
+        generation_plan.project_name,
+        generation_plan.selections,
+    )
     return destination

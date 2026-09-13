@@ -5,8 +5,9 @@ import typer
 from . import __version__
 from .capabilities import CapabilityError, load_capabilities, reconcile_capabilities
 from .doctor import DoctorError, format_doctor, run_doctor
-from .generator import GenerationError, generate_project
+from .generator import generate_project
 from .inspection import InspectionError, format_inspection, inspect_project
+from .planning import GenerationError, GenerationPlan, build_generation_plan
 from .questions import resolve_questions
 from .reconcile import ReconciliationError, reconcile_rag_project
 from .recipe import RecipeError, load_recipe
@@ -61,6 +62,7 @@ def init(
         "-o",
         help="Directory in which to create the generated project.",
     ),
+    dry_run: bool = typer.Option(False, "--dry-run", help="Show the generation plan without writing files."),
 ) -> None:
     """Generate a project from a built-in recipe."""
     root = repository_root()
@@ -71,7 +73,11 @@ def init(
         typer.echo("Recipe validated")
         name = project_name or typer.prompt("Project name", default=loaded_recipe.raw.get("project", {}).get("defaultName", "my-rag-app"))
         answers = resolve_questions(loaded_recipe.questions, typer.prompt)
-        destination = generate_project(loaded_recipe, name, output or Path.cwd(), answers)
+        plan = build_generation_plan(loaded_recipe, name, output or Path.cwd(), answers)
+        if dry_run:
+            typer.echo(format_generation_plan(plan))
+            return
+        destination = generate_project(loaded_recipe, name, output or Path.cwd(), answers, plan)
     except (RecipeError, GenerationError, OSError, ValueError) as error:
         typer.echo(f"Error: {error}", err=True)
         raise typer.Exit(code=1) from error
@@ -79,6 +85,25 @@ def init(
     typer.echo("Project created")
     typer.echo(f"Project created: ./{destination.name}")
     typer.echo("\nNext:\n\n  cd " + destination.name + "\n  cp .env.example .env\n  docker compose up --build")
+
+
+def format_generation_plan(plan: GenerationPlan) -> str:
+    lines = [
+        "Metis generation plan",
+        "",
+        f"Recipe: {plan.recipe}",
+        f"Project: {plan.project_name}",
+        f"Destination: {plan.destination}",
+        "",
+        "Selections:",
+    ]
+    lines.extend(f"  {key}: {value}" for key, value in plan.selections.items())
+    lines.extend(["", "Capabilities:"])
+    lines.extend(f"  {capability}" for capability in plan.capabilities)
+    lines.extend(["", "Files:"])
+    lines.extend(f"  {planned_file.action} {planned_file.path}" for planned_file in plan.files)
+    lines.extend(["", "Dry run only. No files were written."])
+    return "\n".join(lines)
 
 
 
